@@ -71,6 +71,32 @@ class ViewController: UITableViewController {
     }
     
     func submit(_ answer: String) {
+        let lowercaseAnswer = answer.lowercased()
+        
+        if isPossible(word: lowercaseAnswer) {
+            if isOriginal(word: lowercaseAnswer) {
+                if isReal(word: lowercaseAnswer) {
+                    usedWords.insert(answer, at: 0)
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    tableView.insertRows(at: [indexPath], with: .automatic)
+//                    tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    // Conditions to check if the word is possible, original, and real
+    
+    func isPossible(word: String) -> Bool {
+        return true
+    }
+    
+    func isOriginal(word: String) -> Bool {
+        return true
+    }
+    
+    func isReal(word: String) -> Bool {
+        return true
     }
     
     // UITableViewController methods
