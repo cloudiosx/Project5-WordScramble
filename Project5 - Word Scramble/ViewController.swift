@@ -9,12 +9,16 @@ import UIKit
 
 class ViewController: UITableViewController {
     
+    // Properties
+    
     var allWords = [String]()
     var usedWords = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        // Find start.txt file URL, convert it to a String instance, then convert it to an array separated by "\n"
         
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let startWords = try? String(contentsOf: startWordsURL) {
@@ -28,12 +32,18 @@ class ViewController: UITableViewController {
             */
         }
         
+        // If start.txt file is empty, then set allWords array to be ["silkworm"]
+        
         if allWords.isEmpty {
             allWords = ["silkworm"]
         }
         
+        // startGame() method call
+        
         startGame()
     }
+    
+    // Methods
     
     func startGame() {
         title = allWords.randomElement()
