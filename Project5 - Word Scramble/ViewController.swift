@@ -18,6 +18,10 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // Create a UIBarButtonItem to run the promptForAnswer() method
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
+        
         // Find start.txt file URL, convert it to a String instance, then convert it to an array separated by "\n"
         
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
@@ -43,12 +47,30 @@ class ViewController: UITableViewController {
         startGame()
     }
     
+    // Objective-C Methods
+    
+    @objc func promptForAnswer() {
+        let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        
+        let submitAnswer = UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] _ in
+            guard let answer = ac?.textFields?[0].text else { return }
+            self?.submit(answer)
+        }
+        
+        ac.addAction(submitAnswer)
+        present(ac, animated: true)
+    }
+    
     // Methods
     
     func startGame() {
         title = allWords.randomElement()
         usedWords.removeAll(keepingCapacity: true)
         tableView.reloadData()
+    }
+    
+    func submit(_ answer: String) {
     }
     
     // UITableViewController methods
